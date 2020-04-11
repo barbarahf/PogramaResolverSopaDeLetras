@@ -1,21 +1,24 @@
 package com.company;
 
+import java.util.*;
 import java.util.Scanner;
 
 public class Main {
     static int numFilas = 20;
     static int numColumns = 25;
 
-    static int cuantasEncontrar;
+    static int cuantasEncontrar = 20;
+
     static String sopa = "NAELOOBSAZIIMPEPROTOCOLOCMMOTAERAWDRAHILZEDERWWYRNFCUGYTJFQCAQPCPHIPBIUBRORBFBSOBOQRZFAOLIERAWTFOSDEPFQUDROGOCQMTKHÑIHBPPCUAAXUÑMFUILÑÑPPNOCÑWCSKOQOSKAKSDCGFOIUUPMÑEEMESHMXEEOBBSTAGOYTKÑTONQWUDGFJNÑCTOQQBKWNAÑHIXCCBDAFEWOGSOYXUYJÑRDGURIRAAODATIIZMORAYTJSJONAONIISCIMYYCUNQQPOELQPRXCGTPGEORCBPAATUUFOECPUDRULETNDDEIAAMIUNJVTRODMACAARAUEICIGRAMRLPFORCUODJIIFRWDGTYEYRFQULADOUIIIQOIANBAOOOMCGUGXEIGDGMMKJHYZEOTHRLITOYJDJONENONTIICXPGOAIDEORYFAÑJAYVZDRBIJQIUSCOYEEPLYETUDCUEBKXLZUAIROMEMRBZOUJQGYAXGQEFAT";
     static String pal = "Algoritmo Base de datos BooleanChipCompiladorComputadorDirectorioEncriptarGigabyteHardwareInterfazKilobyteProgramaciónMegabyteMemoriaMicroprocesadorProtocoloPseudocódigoRedSoftware";
 
     static char[] tablero = new char[numColumns * numFilas]; //Sopa de letras
 
-    static String palsearch = treuAccents(treuEspais(pal.toUpperCase()));
+    //?
+//    static String palsearch = treuAccents(treuEspais(pal.toUpperCase()));
 
 
-    static char[] palabras = new char[palsearch.length()];
+    static char[] palabras = new char[cuantasEncontrar];
 
 
     static Scanner teclado = new Scanner(System.in).useDelimiter("\n");
@@ -42,6 +45,24 @@ public class Main {
 //        inputWords = teclado.nextLine();
 //        System.out.println(inputWords);
 
+    }
+
+    static String[] buscarPalabras(String s) {
+        String v[] = new String[cuantasEncontrar];
+        int longitud = 1, indice = 0;
+        for (int i = 0; i < s.length(); i++) {
+            for (int x = 0; x < v.length; x++) {
+                while ((longitud < s.length() && !Character.isUpperCase(s.charAt(longitud)))) {
+                    longitud++;
+                }
+                if (longitud > s.length())
+                    break;
+                v[x] = s.substring(indice, longitud);
+                indice = longitud;
+                longitud += 1;
+            }
+        }
+        return v;
     }
 
     static int comprobar(String s) {
@@ -95,11 +116,18 @@ public class Main {
     public static void main(String[] args) {
         tablero = sToString(sopa);
         for (int k = 0; k < tablero.length; k++) {
-            System.out.print(tablero[k] + " ");
+            System.out.print(" " + tablero[k]);
             if ((k + 1) % numColumns == 0) {
                 System.out.println();
             }
         }
 
+//        System.out.println(Arrays.toString(buscarPalabras(pal)));
+//        String str = "AbcDefHig";
+//        int lastCapital =  Array.FindLastIndex<char>(str.ToCharArray(), Char.IsUpper);
+//        String result = null;
+//        if (lastCapital >= 0)
+//            result = str.substring(lastCapital);
+        System.out.println(Arrays.toString(buscarPalabras(pal)));
     }
 }
