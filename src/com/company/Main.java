@@ -12,13 +12,9 @@ public class Main {
     static String sopa = "NAELOOBSAZIIMPEPROTOCOLOCMMOTAERAWDRAHILZEDERWWYRNFCUGYTJFQCAQPCPHIPBIUBRORBFBSOBOQRZFAOLIERAWTFOSDEPFQUDROGOCQMTKHÑIHBPPCUAAXUÑMFUILÑÑPPNOCÑWCSKOQOSKAKSDCGFOIUUPMÑEEMESHMXEEOBBSTAGOYTKÑTONQWUDGFJNÑCTOQQBKWNAÑHIXCCBDAFEWOGSOYXUYJÑRDGURIRAAODATIIZMORAYTJSJONAONIISCIMYYCUNQQPOELQPRXCGTPGEORCBPAATUUFOECPUDRULETNDDEIAAMIUNJVTRODMACAARAUEICIGRAMRLPFORCUODJIIFRWDGTYEYRFQULADOUIIIQOIANBAOOOMCGUGXEIGDGMMKJHYZEOTHRLITOYJDJONENONTIICXPGOAIDEORYFAÑJAYVZDRBIJQIUSCOYEEPLYETUDCUEBKXLZUAIROMEMRBZOUJQGYAXGQEFAT";
     static String pal = "Algoritmo Base de datos BooleanChipCompiladorComputadorDirectorioEncriptarGigabyteHardwareInterfazKilobyteProgramaciónMegabyteMemoriaMicroprocesadorProtocoloPseudocódigoRedSoftware";
 
+
     static char[] tablero = new char[numColumns * numFilas]; //Sopa de letras
-
-    //?
-//    static String palsearch = treuAccents(treuEspais(pal.toUpperCase()));
-
-
-    static char[] palabras = new char[cuantasEncontrar];
+    static String[] palabras = buscarPalabras(pal);
 
 
     static Scanner teclado = new Scanner(System.in).useDelimiter("\n");
@@ -47,7 +43,7 @@ public class Main {
 
     }
 
-    static String[] buscarPalabras(String s) {
+    static String[] buscarPalabras(String s) {//Podria ser void
         String v[] = new String[cuantasEncontrar];
         int longitud = 1, indice = 0;
         for (int i = 0; i < s.length(); i++) {
@@ -57,7 +53,7 @@ public class Main {
                 }
                 if (longitud > s.length())
                     break;
-                v[x] = s.substring(indice, longitud);
+                v[x] = (treuAccents(treuEspais(s.substring(indice, longitud).toUpperCase())));
                 indice = longitud;
                 longitud += 1;
             }
@@ -122,12 +118,6 @@ public class Main {
             }
         }
 
-//        System.out.println(Arrays.toString(buscarPalabras(pal)));
-//        String str = "AbcDefHig";
-//        int lastCapital =  Array.FindLastIndex<char>(str.ToCharArray(), Char.IsUpper);
-//        String result = null;
-//        if (lastCapital >= 0)
-//            result = str.substring(lastCapital);
         System.out.println(Arrays.toString(buscarPalabras(pal)));
     }
 }
