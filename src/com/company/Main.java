@@ -1,20 +1,20 @@
 package com.company;
 
 import java.util.*;
-import java.util.Scanner;
 
 public class Main {
     static int numFilas = 20;
     static int numColumns = 25;
-
     static int cuantasEncontrar = 20;
-
     static String sopa = "NAELOOBSAZIIMPEPROTOCOLOCMMOTAERAWDRAHILZEDERWWYRNFCUGYTJFQCAQPCPHIPBIUBRORBFBSOBOQRZFAOLIERAWTFOSDEPFQUDROGOCQMTKHÑIHBPPCUAAXUÑMFUILÑÑPPNOCÑWCSKOQOSKAKSDCGFOIUUPMÑEEMESHMXEEOBBSTAGOYTKÑTONQWUDGFJNÑCTOQQBKWNAÑHIXCCBDAFEWOGSOYXUYJÑRDGURIRAAODATIIZMORAYTJSJONAONIISCIMYYCUNQQPOELQPRXCGTPGEORCBPAATUUFOECPUDRULETNDDEIAAMIUNJVTRODMACAARAUEICIGRAMRLPFORCUODJIIFRWDGTYEYRFQULADOUIIIQOIANBAOOOMCGUGXEIGDGMMKJHYZEOTHRLITOYJDJONENONTIICXPGOAIDEORYFAÑJAYVZDRBIJQIUSCOYEEPLYETUDCUEBKXLZUAIROMEMRBZOUJQGYAXGQEFAT";
     static String pal = "Algoritmo Base de datos BooleanChipCompiladorComputadorDirectorioEncriptarGigabyteHardwareInterfazKilobyteProgramaciónMegabyteMemoriaMicroprocesadorProtocoloPseudocódigoRedSoftware";
 
 
     static char[] tablero = new char[numColumns * numFilas]; //Sopa de letras
+
     static String[] palabras = buscarPalabras(pal);
+
+    static int[] trobades = new int[cuantasEncontrar];
 
 
     static Scanner teclado = new Scanner(System.in).useDelimiter("\n");
@@ -43,20 +43,22 @@ public class Main {
 
     }
 
-    static String[] buscarPalabras(String s) {//Podria ser void
-        String v[] = new String[cuantasEncontrar];
-        int longitud = 1, indice = 0;
-        for (int i = 0; i < s.length(); i++) {
-            for (int x = 0; x < v.length; x++) {
-                while ((longitud < s.length() && !Character.isUpperCase(s.charAt(longitud)))) {
-                    longitud++;
-                }
-                if (longitud > s.length())
-                    break;
-                v[x] = (treuAccents(treuEspais(s.substring(indice, longitud).toUpperCase())));
-                indice = longitud;
-                longitud += 1;
+    static String[] buscarPalabras(String sav) {
+        String[] v = new String[cuantasEncontrar * 2];
+        int x = 1, indice = 0;
+        String s = sav + sav;
+        for (int j = 0; j < v.length; j++) {
+            while ((x < s.length() && !Character.isUpperCase(s.charAt(x)))) {
+                x++;
             }
+            if (x <= s.length() / 2) {
+                v[j] = (treuAccents(treuEspais(s.substring(indice, x).toUpperCase())));
+            } else {
+
+                v[j] = (treuAccents(treuEspais(giraCad(s.substring(indice, x)).toUpperCase())));
+            }
+            indice = x;
+            x++;
         }
         return v;
     }
@@ -68,7 +70,6 @@ public class Main {
         }
         return Integer.parseInt(s);
     }
-
 
     static String treuEspais(String s) {
         String cad = "";
@@ -109,6 +110,30 @@ public class Main {
         return cad;
     }
 
+    static int[] contador(int v[], String[] s) {
+        //    static int cuantasEncontrar = 20;palabras
+        //p es el indice del vector
+        //    static int[] trobades = new int[cuantasEncontrar];
+        int p = 0;
+        if (p >= cuantasEncontrar)
+            trobades[p - cuantasEncontrar]++;//posicion +1, trobades esta en blanco
+        else
+            trobades[p]++;
+        return v;
+    }
+    /*  for (int i = 0; i < strArray.length; i++) {
+                char[] x = strArray[i].toCharArray();
+                Arrays.sort(x);
+                if(Arrays.equals(chrArray, x))
+                {
+                    System.out.println(strArray[i]);
+                    break;
+                }*/
+    static void trobaHoritzontals(String[]palabras,char[]tablero){
+//    for(int )
+
+    }
+
     public static void main(String[] args) {
         tablero = sToString(sopa);
         for (int k = 0; k < tablero.length; k++) {
@@ -117,6 +142,7 @@ public class Main {
                 System.out.println();
             }
         }
+
 
         System.out.println(Arrays.toString(buscarPalabras(pal)));
     }
