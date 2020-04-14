@@ -6,11 +6,11 @@ public class SopaDeLetras {
     static int numFilas = 20;
     static int numColumns = 25;
     static int cuantasEncontrar = 5;
-    static String sopa = "CAELOOBSAZIIMPEPROTOCOLOCHMOTAERAWDRAHILZEDERWWYRNFIUGYTJFQCAQPCPHIPBIUPRORBFBSOBOQRZFAOLIERAWTFOSDEPFQUDROGOCQMTKHÑIHBPPCUAAXUÑMFUILÑÑPPNOCÑWCSKOQOSKAKSDCGFOIUUPMÑEEMESHMXEEOBBSTAGOYTKÑTONQWUDGFJNÑCTOQQBKWNAÑHIXCCBDAFEWOGSOYXUYJÑRDGURIRAAODATIIZMORAYTJSJONAONIISCIMYYCUNQQPOELQPRXCGTPGEORCBPAATUUFOECPUDRULETNDDEIAAMIUNJVTRODMACAARAUEICIGRAMRLPFORCUODJIIFRWDGTYEYRFQULADOUIIIQOIANBAOOOMCGUGXEIGDGMMKJHYZEOTHRLITOYJDJONENONTIICXPGOAIDEORYFAÑJAYVZDRBIJQIUSCOYEEPLYETUDCUEBKXLZUAIROMEMRBZOUJQGYAXGQEFAT";
+    static String sopa = "NAELOOBSAZIIMPEPROTOCOLOCMMOTAERAWDRAHILZEDERWWYRNFCUGYTJFQCAQPCPHIPBIUBRORBFBSOBOQRZFAOLIERAWTFOSDEPFQUDROGOCQMTKHÑIHBPPCUAAXUÑMFUILÑÑPPNOCÑWCSKOQOSKAKSDCGFOIUUPMÑEEMESHMXEEOBBSTAGOYTKÑTONQWUDGFJNÑCTOQQBKWNAÑHIXCCBDAFEWOGSOYXUYJÑRDGURIRAAODATIIZMORAYTJSJONAONIISCIMYYCUNQQPOELQPRXCGTPGEORCBPAATUUFOECPUDRULETNDDEIAAMIUNJVTRODMACAARAUEICIGRAMRLPFORCUODJIIFRWDGTYEYRFQULADOUIIIQOIANBAOOOMCGUGXEIGDGMMKJHYZEOTHRLITOYJDJONENONTIICXPGOAIDEORYFAÑJAYVZDRBIJQIUSCOYEEPLYETUDCUEBKXLZUAIROMEMRBZOUJQGYAXGQEFAT";
     static String pal = "ChipProtocolo Base de datos BooleanCompilador";
 
 
-    static char[][] tablero = new char[numFilas][numColumns]; //Sopa de letras
+    static char[][] tablero = new char[numFilas][numColumns];
 
     static String[] palabras = buscarPalabras(pal);
 
@@ -80,10 +80,28 @@ public class SopaDeLetras {
         return cad;
     }
 
-    private static char[][] sToString(String s) {//?2d array
-//        return s.toCharArray();
-        char[][] sopa1 = new char[numColumns][numFilas];
-        return sopa1;
+    public static void sToString(String s) {//?2d array
+        int k = 0, row, column;
+        row = numFilas;
+        column = numColumns;
+        char v[][] = new char[row][column];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                if (k < s.length())
+                    v[i][j] = s.charAt(k);
+                k++;
+            }
+        }
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                if (v[i][j] == 0) {
+                    break;
+                }
+                System.out.print(v[i][j] + " ");
+            }
+            System.out.println(" ");
+        }
+
     }
 
 
@@ -115,7 +133,7 @@ public class SopaDeLetras {
 
     private static int[] contador(int p) {
         if (p >= cuantasEncontrar)
-            trobades[p - cuantasEncontrar]++;//posicion +1, trobades esta en blanco
+            trobades[p - cuantasEncontrar]++;
         else
             trobades[p]++;
         return trobades;
@@ -158,15 +176,9 @@ public class SopaDeLetras {
 
 
     public static void main(String[] args) {
-//        tablero = sToString(sopa);
-//        for (int k = 0; k < tablero.length; k++) {
-//            System.out.print(" " + tablero[k]);
-//            if ((k + 1) % numColumns == 0) {
-//                System.out.println();
-//            }
-//        }
 
-//        System.out.println(Arrays.toString(buscarPalabras(pal)));
-//        trobaVerticales(palabras, tablero);
+        sToString(sopa);
+
+
     }
 }
