@@ -1,15 +1,17 @@
 package com.company;
 
-import java.util.Scanner;
+import java.util.*;
 
-public class SopaDeLetras {
+public class LetterSoup {
+
     static int numFilas = 20;
     static int numColumns = 25;
     static int cuantasEncontrar = 5;
-    static String sopa = "NAELOOBSAZIIMPEPROTOCOLOCMMOTAERAWDRAHILZEDERWWYRNFCUGYTJFQCAQPCPHIPBIUBRORBFBSOBOQRZFAOLIERAWTFOSDEPFQUDROGOCQMTKHÑIHBPPCUAAXUÑMFUILÑÑPPNOCÑWCSKOQOSKAKSDCGFOIUUPMÑEEMESHMXEEOBBSTAGOYTKÑTONQWUDGFJNÑCTOQQBKWNAÑHIXCCBDAFEWOGSOYXUYJÑRDGURIRAAODATIIZMORAYTJSJONAONIISCIMYYCUNQQPOELQPRXCGTPGEORCBPAATUUFOECPUDRULETNDDEIAAMIUNJVTRODMACAARAUEICIGRAMRLPFORCUODJIIFRWDGTYEYRFQULADOUIIIQOIANBAOOOMCGUGXEIGDGMMKJHYZEOTHRLITOYJDJONENONTIICXPGOAIDEORYFAÑJAYVZDRBIJQIUSCOYEEPLYETUDCUEBKXLZUAIROMEMRBZOUJQGYAXGQEFAT";
+    static String sopa = "CAELOOBSAZIIMPEPROTOCOLOCHMOTAERAWDRAHILZEDERWWYRNIIUGYTJFQCAQPCPHIPBIUPRORPFBSOBOQRZFAOLIERAWTFOSDEPFQUDROGOCQMTKHÑIHBPPCUAAXUÑMFUILÑÑPPNOCÑWCSKOQOSKAKSDCGFOIUUPMÑEEMESHMXEEOBBSTAGOYTKÑTONQWUDGFJNÑCTOQQBKWNAÑHIXCCBDAFEWOGSOYXUYJÑRDGURIRAAODATIIZMORAYTJSJONAONIISCIMYYCUNQQPOELQPRXCGTPGEORCBPAATUUFOECPUDRULETNDDEIAAMIUNJVTRODMACAARAUEICIGRAMRLPFORCUODJIIFRWDGTYEYRFQULADOUIIIQOIANBAOOOMCGUGXEIGDGMMKJHYZEOTHRLITOYJDJONENONTIICXPGOAIDEORYFAÑJAYVZDRBIJQIUSCOYEEPLYETUDCUEBKXLZUAIROMEMRBZOUJQGYAXGQEFAT";
     static String pal = "ChipProtocolo Base de datos BooleanCompilador";
 
-    static char[][] tablero = new char[numFilas][numColumns];
+
+    static char[] tablero = new char[numColumns * numFilas]; //Sopa de letras
 
     static String[] palabras = buscarPalabras(pal);
 
@@ -18,7 +20,7 @@ public class SopaDeLetras {
 
     static Scanner teclado = new Scanner(System.in).useDelimiter("\n");
 
-    static void introducirDatos() {
+    private static void introducirDatos() {
 //        Scanner teclado = new Scanner(System.in);
 //        System.out.print("Numero de filas de la sopa:");
 //        numFilas = comprobar(teclado.nextLine());
@@ -42,6 +44,14 @@ public class SopaDeLetras {
 
     }
 
+    private static int comprobar(String s) {
+        while (!s.matches("[0-9]*")) {
+            System.out.print("Lo siento, introduce un numero: ");
+            s = teclado.nextLine();
+        }
+        return Integer.parseInt(s);
+    }
+
     private static String[] buscarPalabras(String sav) {
         String[] v = new String[cuantasEncontrar * 2];
         int x = 1, indice = 0;
@@ -62,14 +72,6 @@ public class SopaDeLetras {
         return v;
     }
 
-    static int comprobar(String s) {
-        while (!s.matches("[0-9]*")) {
-            System.out.print("Lo siento, introduce un numero: ");
-            s = teclado.nextLine();
-        }
-        return Integer.parseInt(s);
-    }
-
     private static String treuEspais(String s) {
         String cad = "";
         for (int i = 0; i < s.length(); i++) {
@@ -79,48 +81,9 @@ public class SopaDeLetras {
         return cad;
     }
 
-    public static char[][] sToString(String s) {//?2d array
-        int k = 0, row, column;
-        row = numFilas;
-        column = numColumns;
-        char v[][] = new char[row][column];
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < column; j++) {
-                if (k < s.length())
-                    v[i][j] = s.charAt(k);
-                k++;
-            }
-        }
-        return v;
+    private static char[] sToString(String s) {
+        return s.toCharArray();
     }
-
-//    static void printPrincipalDiagonal(int mat[][], int n) {
-//        System.out.print("Principal Diagonal: ");
-//
-//        for (int i = 0; i < n; i++) {
-//            for (int j = 0; j < n; j++) {
-//                // Condition for principal diagonal
-//                if (i == j) {
-//                    System.out.print(mat[i][j] + ", ");
-//                }
-//            }
-//        }
-//        System.out.println("");
-//    }
-//    // Function to print the Secondary Diagonal
-//    static void printSecondaryDiagonal(int mat[][], int n) {
-//        System.out.print("Secondary Diagonal: ");
-//        for (int i = 0; i < n; i++) {
-//            for (int j = 0; j < n; j++) {
-//                // Condition for secondary diagonal
-//                if ((i + j) == (n - 1)) {
-//                    System.out.print(mat[i][j] + ", ");
-//                }
-//            }
-//        }
-//        System.out.println("");
-//    }
-
 
     private static String giraCad(String s) {
         String r = "";
@@ -150,23 +113,62 @@ public class SopaDeLetras {
 
     private static int[] contador(int p) {
         if (p >= cuantasEncontrar)
-            trobades[p - cuantasEncontrar]++;
+            trobades[p - cuantasEncontrar]++;//posicion +1, trobades esta en blanco
         else
             trobades[p]++;
         return trobades;
     }
 
+//    static void trobaHoritzontals(String[] palabras, char[] tablero) {
+//        for (int x = 0; x < palabras.length; x++) {
+//            for (int i = 0; i < tablero.length; i++) {
+//                char[] ch = palabras[x].toCharArray();
+//                if (ch[0] != tablero[i]) {
+//                    continue;
+//                } else {
+//                    int salvar = i;
+//                    int wordLong = 0;
+//                    for (int chrs = 0; chrs < ch.length; chrs++) {
+//                        if (ch[chrs] == tablero[salvar]) {
+//                            salvar++;
+//                            wordLong++;
+//                            continue;
+//                        }
+//                        break;
+//                    }
+//                    if (ch.length == wordLong) {
+//                        contador(x);
+//                        System.out.println(palabras[x]);
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+    //
+    private static void trobaVerticales(char[] tablero) {
+        int number = 0;
+        for (int i = 1; i < numColumns; i++) {
+            for (int j = 1; j < numFilas; j++) {
+                number = i + ((j * numColumns) - numColumns);
+                System.out.println(tablero[number - 1]);
+            }
+        }
+    }
+
+
     public static void main(String[] args) {
         tablero = sToString(sopa);
-        for (int i = 0; i < numFilas; i++) {
-            for (int j = 0; j < numColumns; j++) {
-                if (tablero[i][j] == 0) {
-                    break;
-                }
-                System.out.print(tablero[i][j] + " ");
-            }
-            System.out.println(" ");
-        }
+//        for (int k = 0; k < tablero.length; k++) {
+//            System.out.print(" " + tablero[k]);
+//            if ((k + 1) % numColumns == 0) {
+//                System.out.println();
+//            }
+//        }
 
+        System.out.println(Arrays.toString(buscarPalabras(pal)));
+        trobaVerticales(tablero);
     }
 }
+
+
