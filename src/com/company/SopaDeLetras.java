@@ -6,8 +6,8 @@ public class SopaDeLetras {
     static int numFilas = 20;
     static int numColumns = 25;
     static int cuantasEncontrar = 5;
-    static String sopa = "NAELOOBSAZIIMPEPROTOCOLOCMMOTAERAWDRAHILZEDERWWYRNFCUGYTJFQCAQPCPHIPBIUBRORBFBSOBOQRZFAOLIERAWTFOSDEPFQUDROGOCQMTKHÑIHBPPCUAAXUÑMFUILÑÑPPNOCÑWCSKOQOSKAKSDCGFOIUUPMÑEEMESHMXEEOBBSTAGOYTKÑTONQWUDGFJNÑCTOQQBKWNAÑHIXCCBDAFEWOGSOYXUYJÑRDGURIRAAODATIIZMORAYTJSJONAONIISCIMYYCUNQQPOELQPRXCGTPGEORCBPAATUUFOECPUDRULETNDDEIAAMIUNJVTRODMACAARAUEICIGRAMRLPFORCUODJIIFRWDGTYEYRFQULADOUIIIQOIANBAOOOMCGUGXEIGDGMMKJHYZEOTHRLITOYJDJONENONTIICXPGOAIDEORYFAÑJAYVZDRBIJQIUSCOYEEPLYETUDCUEBKXLZUAIROMEMRBZOUJQGYAXGQEFAT";
-    static String pal = "ChipProtocolo Base de datos BooleanCompilador";
+    static String sopa = "BOOLEANSAZIIMPEPROTOCOLOCMMOTAERAWDRAHILZEDERWWYRNFCUGYTJFQCAQPCPHIPBIUBRORBFBSOBOQRZFAOLIERAWTFOSDEPFQUDROGOCQMTKHÑIHBPPCUAAXUÑMFUILÑÑPPNOCÑWCSKOQOSKAKSDCGFOIUUPMÑEEMESHMXEEOBBSTAGOYTKÑTONQWUDGFJNÑCTOQQBKWNAÑHIXCCBDAFEWOGSOYXUYJÑRDGURIRAAODATIIZMORAYTJSJONAONIISCIMYYCUNQQPOELQPRXCGTPGEORCBPAATUUFOECPUDRULETNDDEIAAMIUNJVTRODMACAARAUEICIGRAMRLPFORCUODJIIFRWDGTYEYRFQULADOUIIIQOIANBAOOOMCGUGXEIGDGMMKJHYZEOTHRLITOYJDJONENONTIICXPGOAIDEORYFAÑJAYVZDRBIJQIUSCOYEEPLYETUDCUEBKXLZUAIROMEMRBZOUJQGYAXGQEFAT";
+    static String pal = "BooleanChipProtocolo Base de datos  Compilador";
 
     static char[][] tablero = new char[numFilas][numColumns];
 
@@ -94,33 +94,6 @@ public class SopaDeLetras {
         return v;
     }
 
-//    static void printPrincipalDiagonal(int mat[][], int n) {
-//        System.out.print("Principal Diagonal: ");
-//
-//        for (int i = 0; i < n; i++) {
-//            for (int j = 0; j < n; j++) {
-//                // Condition for principal diagonal
-//                if (i == j) {
-//                    System.out.print(mat[i][j] + ", ");
-//                }
-//            }
-//        }
-//        System.out.println("");
-//    }
-//    // Function to print the Secondary Diagonal
-//    static void printSecondaryDiagonal(int mat[][], int n) {
-//        System.out.print("Secondary Diagonal: ");
-//        for (int i = 0; i < n; i++) {
-//            for (int j = 0; j < n; j++) {
-//                // Condition for secondary diagonal
-//                if ((i + j) == (n - 1)) {
-//                    System.out.print(mat[i][j] + ", ");
-//                }
-//            }
-//        }
-//        System.out.println("");
-//    }
-
 
     private static String giraCad(String s) {
         String r = "";
@@ -156,17 +129,75 @@ public class SopaDeLetras {
         return trobades;
     }
 
-    public static void main(String[] args) {
-        tablero = sToString(sopa);
+    private static String[] trobaHorizontal(String[] palabras, char[][] tablero) {
+//        int w = 0, found = 0;
+//        for (int i = 0; i < numFilas; i++) {
+//            for (int j = 0; j < numColumns; j++) {
+//                for (w = 0; w < palabras.length; w++) {
+//                    found = 0;
+//                    char[] ch = palabras[w].toCharArray();
+//                    j = 0;
+//                    for (int c = 0; c < ch.length; c++) {
+//                        System.out.println(tablero[i][j]);
+//                        while (tablero[i][j] != ch[0]) { //Se incrementan los caracteres
+//                            j++; //Esto no funcionará porque necesito la referencia
+//                        }
+//                        if (tablero[i][j] == ch[0]) {
+//                            found++;
+//                            if (found == palabras[w].length()) {
+//                                System.out.println(palabras[w]);
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+
         for (int i = 0; i < numFilas; i++) {
-            for (int j = 0; j < numColumns; j++) {
-                if (tablero[i][j] == 0) {
+            for (int w = 0; w < palabras.length; w++) {
+                char[] ch = palabras[w].toCharArray();
+                for (int j = 0; j < numColumns; j++) {
+                    System.out.println(tablero[i][j]);
+                    if (tablero[i][j] != ch[0]) {
+                        continue;
+                    } else {
+                        int sav = j;
+                        int found = 0;
+                        for (int c = 0; c < ch.length; c++) {
+                            if (ch[c] == tablero[i][sav]) {
+                                sav++;
+                                found++;
+                                continue;
+                            }
+                            break;
+                        }
+                        if (ch.length == found) {
+                            System.out.println(palabras[w]);
+                            sav = 0;
+                        }
+                    }
                     break;
                 }
-                System.out.print(tablero[i][j] + " ");
+
             }
-            System.out.println(" ");
         }
 
+
+        return palabras;
+    }
+
+    public static void main(String[] args) {
+
+        tablero = sToString(sopa);
+//        for (int i = 0; i < numFilas; i++) {
+//            for (int j = 0; j < numColumns; j++) {
+//                if (tablero[i][j] == 0) {
+//                    break;
+//                }
+//                System.out.print(tablero[i][j] + " ");
+//            }
+//            System.out.println(" ");
+//        }
+        trobaHorizontal(palabras, tablero);
     }
 }
