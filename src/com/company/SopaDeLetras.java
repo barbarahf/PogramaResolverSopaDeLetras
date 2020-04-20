@@ -1,46 +1,37 @@
 package com.company;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class SopaDeLetras {
-    static int numFilas = 20;
-    static int numColumns = 25;
-    static int cuantasEncontrar = 5;
-    static String sopa = "BOOLEANSAZIIMPEPROTOCOLOCMMOTAERAWDRAHILZEDERWWYRNFCUGYTJFQCAQPCPHIPBIUBRORBFBSOBOQRZFAOLIERAWTFOSDEPFQUDROGOCQMTKHÑIHBPPCUAAXUÑMFUILÑÑPPNOCÑWCSKOQOSKAKSDCGFOIUUPMÑEEMESHMXEEOBBSTAGOYTKÑTONQWUDGFJNÑCTOQQBKWNAÑHIXCCBDAFEWOGSOYXUYJÑRDGURIRAAODATIIZMORAYTJSJONAONIISCIMYYCUNQQPOELQPRXCGTPGEORCBPAATUUFOECPUDRULETNDDEIAAMIUNJVTRODMACAARAUEICIGRAMRLPFORCUODJIIFRWDGTYEYRFQULADOUIIIQOIANBAOOOMCGUGXEIGDGMMKJHYZEOTHRLITOYJDJONENONTIICXPGOAIDEORYFAÑJAYVZDRBIJQIUSCOYEEPLYETUDCUEBKXLZUAIROMEMRBZOUJQGYAXGQEFAT";
-    static String pal = "BooleanChipProtocolo Base de datos  Compilador";
-
+    static int numFilas = 3;
+    static int numColumns = 9;
+    static int cuantasEncontrar = 2;
+    static String sopa = "CHIPCHIPABOOLEANNNCHIPBOOL";
+    static String pal = "BooleanChip";
     static char[][] tablero = new char[numFilas][numColumns];
-
     static String[] palabras = buscarPalabras(pal);
-
     static int[] trobades = new int[cuantasEncontrar];
-
-
     static Scanner teclado = new Scanner(System.in).useDelimiter("\n");
 
-    static void introducirDatos() {
+//    static void introducirDatos() {
 //        Scanner teclado = new Scanner(System.in);
 //        System.out.print("Numero de filas de la sopa:");
 //        numFilas = comprobar(teclado.nextLine());
 //        System.out.println(numFilas);
-//
 //        System.out.print("Numero de columnas de la sopa: ");
 //        numColumns = comprobar(teclado.nextLine());
 //        System.out.println(numColumns);
-//
 //        System.out.print("Introduce la sopa de letras: ");
 //        sopa = teclado.nextLine();
 //        System.out.println(sopa);
-//
 //        System.out.print("¿Cuantas palabras deseas encontrar en la sopa?: ");
 //        cuantasEncontrar = comprobar(teclado.nextLine());
-//        System.out.println(cuantas);
-//
+//        System.out.println(cuantasEncontrar);
 //        System.out.print("Introduce las palabras que deseas buscar en la sopa: ");
-//        inputWords = teclado.nextLine();
-//        System.out.println(inputWords);
-
-    }
+//        pal = teclado.nextLine();
+//        System.out.println(pal);
+//    }
 
     private static String[] buscarPalabras(String sav) {
         String[] v = new String[cuantasEncontrar * 2];
@@ -129,62 +120,37 @@ public class SopaDeLetras {
         return trobades;
     }
 
-    private static String[] trobaHorizontal(String[] palabras, char[][] tablero) {
-//        int w = 0, found = 0;
-//        for (int i = 0; i < numFilas; i++) {
-//            for (int j = 0; j < numColumns; j++) {
-//                for (w = 0; w < palabras.length; w++) {
-//                    found = 0;
-//                    char[] ch = palabras[w].toCharArray();
-//                    j = 0;
-//                    for (int c = 0; c < ch.length; c++) {
-//                        System.out.println(tablero[i][j]);
-//                        while (tablero[i][j] != ch[0]) { //Se incrementan los caracteres
-//                            j++; //Esto no funcionará porque necesito la referencia
-//                        }
-//                        if (tablero[i][j] == ch[0]) {
-//                            found++;
-//                            if (found == palabras[w].length()) {
-//                                System.out.println(palabras[w]);
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
 
-        for (int i = 0; i < numFilas; i++) {
-            for (int w = 0; w < palabras.length; w++) {
-                char[] ch = palabras[w].toCharArray();
-                for (int j = 0; j < numColumns; j++) {
-                    System.out.println(tablero[i][j]);
-                    if (tablero[i][j] != ch[0]) {
-                        continue;
-                    } else {
-                        int sav = j;
-                        int found = 0;
+    private static void trobaHorizontal(String[] palabras, char[][] tablero) {
+        boolean trobada = false;
+        for (int n = 0; n < numFilas; n++) {
+            outer:
+            for (int m = 0; m < numColumns; m++) {
+                for (int p = 0; p < palabras.length; p++) {
+                    if (palabras[p].charAt(0) == tablero[n][m]) {
+                        int searchRow = n;
+                        int searchColum = m;
+                        boolean allCharFound = true;
+                        char[] ch = palabras[p].toCharArray();
                         for (int c = 0; c < ch.length; c++) {
-                            if (ch[c] == tablero[i][sav]) {
-                                sav++;
-                                found++;
-                                continue;
+                            if (tablero[searchRow][searchColum] != ch[c] || numColumns - 1 == searchColum) {
+                                allCharFound = false;//ciega mija
+                                break;
                             }
-                            break;
+                            searchColum++;
                         }
-                        if (ch.length == found) {
-                            System.out.println(palabras[w]);
-                            sav = 0;
+                        if (allCharFound) {
+                            trobada = true;
+                            System.out.println(palabras[p]);
                         }
                     }
-                    break;
                 }
-
             }
         }
 
 
-        return palabras;
     }
+
 
     public static void main(String[] args) {
 

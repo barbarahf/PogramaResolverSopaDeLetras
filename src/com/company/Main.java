@@ -134,7 +134,7 @@
 //                            wordLong++;
 //                            continue;
 //                        }
-//                        break;//???hey
+//                        break;
 //                    }
 //                    if (ch.length == wordLong) {
 //                        contador(x);

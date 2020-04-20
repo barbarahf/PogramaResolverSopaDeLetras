@@ -3,7 +3,12 @@ package com.company;
 import java.util.*;
 
 public class LetterSoup {
-
+/* static int numFilas = 20;
+    static int numColumns = 25;
+    static int cuantasEncontrar = 20;
+    static String sopa = "NAELOOBSAZIIMPEPROTOCOLOCMMOTAERAWDRAHILZEDERWWYRNFCUGYTJFQCAQPCPHIPBIUBRORBFBSOBOQRZFAOLIERAWTFOSDEPFQUDROGOCQMTKHÑIHBPPCUAAXUÑMFUILÑÑPPNOCÑWCSKOQOSKAKSDCGFOIUUPMÑEEMESHMXEEOBBSTAGOYTKÑTONQWUDGFJNÑCTOQQBKWNAÑHIXCCBDAFEWOGSOYXUYJÑRDGURIRAAODATIIZMORAYTJSJONAONIISCIMYYCUNQQPOELQPRXCGTPGEORCBPAATUUFOECPUDRULETNDDEIAAMIUNJVTRODMACAARAUEICIGRAMRLPFORCUODJIIFRWDGTYEYRFQULADOUIIIQOIANBAOOOMCGUGXEIGDGMMKJHYZEOTHRLITOYJDJONENONTIICXPGOAIDEORYFAÑJAYVZDRBIJQIUSCOYEEPLYETUDCUEBKXLZUAIROMEMRBZOUJQGYAXGQEFAT";
+    static String pal = "AlgoritmoBase de datosBooleanChipCompiladorComputadorDirectorioEncriptarGigabyteHardwareInterfazKilobyteProgramaciónMegabyteMemoriaMicroprocesadorProtocoloPseudocódigoRedSoftware";
+    static char[][] tablero = new char[numFilas][numColumns];*/
     static int numFilas = 20;
     static int numColumns = 25;
     static int cuantasEncontrar = 5;
