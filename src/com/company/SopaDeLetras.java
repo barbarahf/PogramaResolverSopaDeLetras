@@ -4,12 +4,13 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class SopaDeLetras {
-    static int numFilas = 3;
-    static int numColumns = 9;
+    static int numFilas = 4;
+    static int numColumns = 3;
     static int cuantasEncontrar = 2;
-    static String sopa = "CHIPCHIPABOOLEANNNCHIPBOOL";
-    static String pal = "BooleanChip";
+    static String sopa = "CCRHHEIIDPPA";
+    static String pal = "RedChip";
     static char[][] tablero = new char[numFilas][numColumns];
+    static String[][] sopacol = new String[numFilas][numColumns];
     static String[] palabras = buscarPalabras(pal);
     static int[] trobades = new int[cuantasEncontrar];
     static Scanner teclado = new Scanner(System.in).useDelimiter("\n");
@@ -70,7 +71,7 @@ public class SopaDeLetras {
         return cad;
     }
 
-    public static char[][] sToString(String s) {//?2d array
+    public static char[][] sToString(String s) {
         int k = 0, row, column;
         row = numFilas;
         column = numColumns;
@@ -85,6 +86,15 @@ public class SopaDeLetras {
         return v;
     }
 
+    public static String[][] sArrayStr(char[][] s) {
+        String[][] v = new String[numFilas][numColumns];
+        for (int i = 0; i < numFilas; i++) {
+            for (int j = 0; j < numColumns; j++) {
+                v[i][j] = Character.toString(s[i][j]);
+            }
+        }
+        return v;
+    }
 
     private static String giraCad(String s) {
         String r = "";
@@ -120,7 +130,6 @@ public class SopaDeLetras {
         return trobades;
     }
 
-
     private static void trobaHorizontal(String[] palabras, char[][] tablero) {
         boolean trobada = false;
         for (int n = 0; n < numFilas; n++) {
@@ -139,31 +148,61 @@ public class SopaDeLetras {
                             }
                             searchColum++;
                         }
+                        String color = (char) 27 + "[0;36;40m";
                         if (allCharFound) {
-                            trobada = true;
                             System.out.println(palabras[p]);
+//                            trobada = true;
+                            for (int q = 0; q < palabras[p].length(); q++) {
+                                sopacol[searchRow][searchColum - q - 1] = color + tablero[searchRow][searchColum - q - 1] + (char) 27 + "[0m";
+                            }
                         }
                     }
                 }
             }
         }
-
-
     }
 
+    private static void trobaVerticals(String[] palabras, char[][] tablero) {
+        boolean trobada = false;
+        for (int n = 0; n < numFilas; n++) {
+            outer:
+            for (int m = 0; m < numColumns; m++) {
+                for (int p = 0; p < palabras.length; p++) {
+                    if (palabras[p].charAt(0) == tablero[n][m]) {
+                        int searchRow = n;
+                        int searchColum = m;
+                        boolean allCharFound = true;
+                        char[] ch = palabras[p].toCharArray();
+                        for (int c = 0; c < ch.length; c++) {
+                            if (tablero[searchRow][searchColum] != ch[c] || numColumns - 1 == searchColum) {
+                                allCharFound = false;//ciega mija
+                                break;
+                            }
+                            searchRow++;
+                        }
+                        String color = (char) 27 + "[0;36;40m";
+                        if (allCharFound) {
+                            System.out.println(palabras[p]);
+//                            trobada = true;
+                            for (int q = 0; q < palabras[p].length(); q++) {
+                                sopacol[searchRow][searchColum - q - 1] = color + tablero[searchRow][searchColum - q - 1] + (char) 27 + "[0m";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     public static void main(String[] args) {
-
         tablero = sToString(sopa);
-//        for (int i = 0; i < numFilas; i++) {
-//            for (int j = 0; j < numColumns; j++) {
-//                if (tablero[i][j] == 0) {
-//                    break;
-//                }
-//                System.out.print(tablero[i][j] + " ");
-//            }
-//            System.out.println(" ");
-//        }
+        sopacol = sArrayStr(tablero);
         trobaHorizontal(palabras, tablero);
+        for (int i = 0; i < numFilas; i++) {
+            for (int j = 0; j < numColumns; j++) {
+                System.out.print(sopacol[i][j] + " ");
+            }
+            System.out.println(" ");
+        }
     }
 }
