@@ -151,6 +151,44 @@ public class LetterSoup {
 //    }
 
     //
+    private static void trobaVerticals(String[] palabras, char[][] tablero) {
+        int found = 0;
+        boolean allCharFound = true;
+        for (int n = 0; n < numFilas; n++) {
+            for (int m = 0; m < numColumns; m++) {
+                for (int p = 0; p < palabras.length; p++) {
+                    if (palabras[p].charAt(0) == tablero[n][m]) {
+                        int searchRow = n;
+                        int searchColum = m;
+                        char[] ch = palabras[p].toCharArray();
+                        for (int c = 0; c < ch.length; c++) {
+                            if (numColumns == searchColum || numFilas == searchRow ||
+                                    tablero[searchRow][searchColum] != ch[c]) {
+                                allCharFound = false;
+                                searchColum++;
+                                break;
+                            }
+                            if (tablero[searchRow][searchColum] == ch[c] && found != palabras[p].length()) {
+                                searchRow++;
+                                found++;
+                                if (found == palabras[p].length() - 1) {
+                                    allCharFound = true;
+                                    break;
+                                }
+                            }
+                        }
+                        String color = (char) 27 + "[0;35;41m";
+                        if (allCharFound) {
+                            System.out.print(palabras[p] + " ");
+                            found = 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
     private static void trobaVerticales(char[] tablero) {
         int number = 0;
         for (int i = 1; i < numColumns; i++) {

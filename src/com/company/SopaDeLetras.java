@@ -1,6 +1,5 @@
 package com.company;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class SopaDeLetras {
@@ -131,29 +130,24 @@ public class SopaDeLetras {
     }
 
     private static void trobaHorizontal(String[] palabras, char[][] tablero) {
-        boolean trobada = false;
         for (int n = 0; n < numFilas; n++) {
-            outer:
             for (int m = 0; m < numColumns; m++) {
                 for (int p = 0; p < palabras.length; p++) {
                     if (palabras[p].charAt(0) == tablero[n][m]) {
-                        int searchRow = n;
-                        int searchColum = m;
+                        var searchColum = m; //Variable local
                         boolean allCharFound = true;
                         char[] ch = palabras[p].toCharArray();
                         for (int c = 0; c < ch.length; c++) {
-                            if (tablero[searchRow][searchColum] != ch[c] || numColumns - 1 == searchColum) {
-                                allCharFound = false;//ciega mija
+                            if (tablero[n][searchColum] != ch[c] || numColumns - 1 == searchColum) {
+                                allCharFound = false;
                                 break;
                             }
                             searchColum++;
                         }
                         String color = (char) 27 + "[0;36;40m";
                         if (allCharFound) {
-                            System.out.println(palabras[p]);
-//                            trobada = true;
                             for (int q = 0; q < palabras[p].length(); q++) {
-                                sopacol[searchRow][searchColum - q - 1] = color + tablero[searchRow][searchColum - q - 1] + (char) 27 + "[0m";
+                                sopacol[n][searchColum - q - 1] = color + tablero[n][searchColum - q - 1] + (char) 27 + "[0m";
                             }
                         }
                     }
@@ -162,31 +156,39 @@ public class SopaDeLetras {
         }
     }
 
+
     private static void trobaVerticals(String[] palabras, char[][] tablero) {
-        boolean trobada = false;
+        int found = 0;
+        boolean allCharFound = true;
         for (int n = 0; n < numFilas; n++) {
-            outer:
             for (int m = 0; m < numColumns; m++) {
                 for (int p = 0; p < palabras.length; p++) {
                     if (palabras[p].charAt(0) == tablero[n][m]) {
                         int searchRow = n;
                         int searchColum = m;
-                        boolean allCharFound = true;
                         char[] ch = palabras[p].toCharArray();
                         for (int c = 0; c < ch.length; c++) {
-                            if (tablero[searchRow][searchColum] != ch[c] || numColumns - 1 == searchColum) {
-                                allCharFound = false;//ciega mija
+                            if (numColumns == searchColum || numFilas == searchRow ||
+                                    tablero[searchRow][searchColum] != ch[c]) {
+                                allCharFound = false;
+                                found = 0;
+                                searchColum++;
                                 break;
                             }
-                            searchRow++;
-                        }
-                        String color = (char) 27 + "[0;36;40m";
-                        if (allCharFound) {
-                            System.out.println(palabras[p]);
-//                            trobada = true;
-                            for (int q = 0; q < palabras[p].length(); q++) {
-                                sopacol[searchRow][searchColum - q - 1] = color + tablero[searchRow][searchColum - q - 1] + (char) 27 + "[0m";
+                            if (tablero[searchRow][searchColum] == ch[c] && found != palabras[p].length()) {
+                                searchRow++;
+                                found++;
+                                if (found == palabras[p].length() - 1) {
+                                    allCharFound = true;
+                                    break;
+                                }
                             }
+                        }
+                        String color = (char) 27 + "[0;35;41m";
+                        if (allCharFound) {
+                            System.out.print(palabras[p] + " ");
+                            System.out.println(" ");
+                            found = 0;
                         }
                     }
                 }
@@ -194,10 +196,12 @@ public class SopaDeLetras {
         }
     }
 
+
     public static void main(String[] args) {
         tablero = sToString(sopa);
         sopacol = sArrayStr(tablero);
-        trobaHorizontal(palabras, tablero);
+//        trobaHorizontal(palabras, tablero);
+        trobaVerticals(palabras, tablero);
         for (int i = 0; i < numFilas; i++) {
             for (int j = 0; j < numColumns; j++) {
                 System.out.print(sopacol[i][j] + " ");
