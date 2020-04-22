@@ -1,37 +1,38 @@
 package com.company;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class SopaDeLetras {
-    static int numFilas = 4;
-    static int numColumns = 4;
-    static int cuantasEncontrar = 2;
-    static String sopa = "RMRCDEHADIDXPOMN";
-    static String pal = "RedChip";
+    static int numFilas;
+    static int numColumns;
+    static int cuantasEncontrar;
+    static String sopa;
+    static String pal;
     static char[][] tablero = new char[numFilas][numColumns];
     static String[][] sopacol = new String[numFilas][numColumns];
     static String[] palabras = buscarPalabras(pal);
     static int[] trobades = new int[cuantasEncontrar];
     static Scanner teclado = new Scanner(System.in).useDelimiter("\n");
 
-//    static void introducirDatos() {
-//        Scanner teclado = new Scanner(System.in);
-//        System.out.print("Numero de filas de la sopa:");
-//        numFilas = comprobar(teclado.nextLine());
-//        System.out.println(numFilas);
-//        System.out.print("Numero de columnas de la sopa: ");
-//        numColumns = comprobar(teclado.nextLine());
-//        System.out.println(numColumns);
-//        System.out.print("Introduce la sopa de letras: ");
-//        sopa = teclado.nextLine();
-//        System.out.println(sopa);
-//        System.out.print("¿Cuantas palabras deseas encontrar en la sopa?: ");
-//        cuantasEncontrar = comprobar(teclado.nextLine());
-//        System.out.println(cuantasEncontrar);
-//        System.out.print("Introduce las palabras que deseas buscar en la sopa: ");
-//        pal = teclado.nextLine();
-//        System.out.println(pal);
-//    }
+    static void introducirDatos() {
+        Scanner teclado = new Scanner(System.in);
+        System.out.print("Numero de filas de la sopa:");
+        numFilas = comprobar(teclado.nextLine());
+        System.out.println(numFilas);
+        System.out.print("Numero de columnas de la sopa: ");
+        numColumns = comprobar(teclado.nextLine());
+        System.out.println(numColumns);
+        System.out.print("Introduce la sopa de letras: ");
+        sopa = teclado.nextLine();
+        System.out.println(sopa);
+        System.out.print("¿Cuantas palabras deseas encontrar en la sopa?: ");
+        cuantasEncontrar = comprobar(teclado.nextLine());
+        System.out.println(cuantasEncontrar);
+        System.out.print("Introduce las palabras que deseas buscar en la sopa: ");
+        pal = teclado.nextLine();
+        System.out.println(pal);
+    }
 
     private static String[] buscarPalabras(String sav) {
         String[] v = new String[cuantasEncontrar * 2];
@@ -196,10 +197,10 @@ public class SopaDeLetras {
                 }
             }
         }
-
     }
 
     public static void main(String[] args) {
+        introducirDatos();
         tablero = sToString(sopa);
         sopacol = sArrayStr(tablero);
         trobaHorizontal(palabras, tablero);
@@ -210,5 +211,7 @@ public class SopaDeLetras {
             }
             System.out.println(" ");
         }
+        System.out.println(Arrays.toString(palabras));
+        System.out.println(Arrays.toString(trobades));
     }
 }
