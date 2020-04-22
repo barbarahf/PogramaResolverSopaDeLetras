@@ -4,9 +4,9 @@ import java.util.Scanner;
 
 public class SopaDeLetras {
     static int numFilas = 4;
-    static int numColumns = 3;
+    static int numColumns = 4;
     static int cuantasEncontrar = 2;
-    static String sopa = "CCRHHEIIDPPA";
+    static String sopa = "AMRCDEHADICXPOMN";
     static String pal = "RedChip";
     static char[][] tablero = new char[numFilas][numColumns];
     static String[][] sopacol = new String[numFilas][numColumns];
@@ -178,22 +178,26 @@ public class SopaDeLetras {
                             if (tablero[searchRow][searchColum] == ch[c] && found != palabras[p].length()) {
                                 searchRow++;
                                 found++;
-                                if (found == palabras[p].length() - 1) {
-                                    allCharFound = true;
-                                    break;
-                                }
+                            }
+                            if (found == palabras[p].length()) {
+                                allCharFound = true;
+                                break;
                             }
                         }
                         String color = (char) 27 + "[0;35;41m";
                         if (allCharFound) {
-                            System.out.print(palabras[p] + " ");
-                            System.out.println(" ");
                             found = 0;
+                            System.out.println(palabras[p]);
+                            for (int q = 0; q < palabras[p].length(); q++) {
+                                sopacol[searchRow-q-1][m] = color + tablero[searchRow-q-1][m] + (char) 27 + "[0m";
+                            }
+
                         }
                     }
                 }
             }
         }
+
     }
 
 
