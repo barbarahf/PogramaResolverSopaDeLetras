@@ -6,7 +6,7 @@ public class SopaDeLetras {
     static int numFilas = 4;
     static int numColumns = 4;
     static int cuantasEncontrar = 2;
-    static String sopa = "AMRCDEHADICXPOMN";
+    static String sopa = "RMRCDEHADIDXPOMN";
     static String pal = "RedChip";
     static char[][] tablero = new char[numFilas][numColumns];
     static String[][] sopacol = new String[numFilas][numColumns];
@@ -146,6 +146,7 @@ public class SopaDeLetras {
                         }
                         String color = (char) 27 + "[0;36;40m";
                         if (allCharFound) {
+                            contador(p);
                             for (int q = 0; q < palabras[p].length(); q++) {
                                 sopacol[n][searchColum - q - 1] = color + tablero[n][searchColum - q - 1] + (char) 27 + "[0m";
                             }
@@ -155,7 +156,6 @@ public class SopaDeLetras {
             }
         }
     }
-
 
     private static void trobaVerticals(String[] palabras, char[][] tablero) {
         int found = 0;
@@ -187,11 +187,10 @@ public class SopaDeLetras {
                         String color = (char) 27 + "[0;35;41m";
                         if (allCharFound) {
                             found = 0;
-                            System.out.println(palabras[p]);
+                            contador(p);
                             for (int q = 0; q < palabras[p].length(); q++) {
-                                sopacol[searchRow-q-1][m] = color + tablero[searchRow-q-1][m] + (char) 27 + "[0m";
+                                sopacol[searchRow - q - 1][m] = color + tablero[searchRow - q - 1][m] + (char) 27 + "[0m";
                             }
-
                         }
                     }
                 }
@@ -200,11 +199,10 @@ public class SopaDeLetras {
 
     }
 
-
     public static void main(String[] args) {
         tablero = sToString(sopa);
         sopacol = sArrayStr(tablero);
-//        trobaHorizontal(palabras, tablero);
+        trobaHorizontal(palabras, tablero);
         trobaVerticals(palabras, tablero);
         for (int i = 0; i < numFilas; i++) {
             for (int j = 0; j < numColumns; j++) {
